@@ -40,6 +40,7 @@ requests-unixsocket==0.2.0
 smmap==4.0.0
 tzlocal==2.1
 validators==0.18.2
+voila==0.2.10
 watchdog==2.1.2
 webencodings==0.5.1
 wrapt==1.12.1
