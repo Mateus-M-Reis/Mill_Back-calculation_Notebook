@@ -21,6 +21,7 @@ iopath==0.1.8
 jdcal==1.4.1
 jupyterlab==3.0.16
 llvmlite==0.36.0
+lmfit==1.0.2
 locket==0.2.0
 mccabe==0.6.1
 netifaces==0.11.0
