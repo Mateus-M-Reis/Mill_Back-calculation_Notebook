@@ -1,7 +1,6 @@
 addict==2.4.0
 aioice==0.7.5
 aiortc==1.2.0
-altair==4.1.0
 astor==0.8.1
 async-generator==1.10
 async-timeout==3.0.1
@@ -20,6 +19,7 @@ GitPython==3.1.17
 google-auth-oauthlib==0.4.1
 iopath==0.1.8
 jdcal==1.4.1
+jupyterlab==3.0.16
 llvmlite==0.36.0
 locket==0.2.0
 mccabe==0.6.1
