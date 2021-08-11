@@ -38,20 +38,46 @@ def retro_calc(vals,
     
     return (wi_mc * (np.subtract(disc, ps_mat)**2)).sum(1)
 
+def update_gran_plot():
+    ps_mat = np.zeros((n_temp, n_inter))
+    Si = selecao(mu_s.value, lambda_s.value, A_s.value, alpha_s.value)
+    Bij = calc_Bij(delta_s.value, phi_um_s.value, gamma_s.value, beta_s.value)
+    bij = calc_bij(Bij)
+
+    for i in range(1, n_temp+1):
+        ej = calc_ej( temp[i-1], Si, flow_m)
+        aij = calc_aij(Si, bij, w0_exp)
+        ps = calc_pi(aij, ej)
+        ps_mat[i-1] = ps
+
+        if len(gran_fig.marks)>(n_temp+1):
+            for i in range(1, n_temp+1):
+                gran_fig.marks[i+n_temp].y = ps_mat[:,::-1].cumsum(1)[i-1]
+        else:
+            for i in range(1, n_temp+1):
+                plt.figure(0)
+                plt.plot(
+                        x=size_mm[::-1],
+                        y=ps_mat[:,::-1].cumsum(1)[i-1],
+                        interpolation='basis',
+                        stroke_width=2,
+                        colors=[color_scale.iloc[i-1]])
+
 def retro_calc_Austin(b):
 
     params = Parameters()
 
     # add with tuples: (NAME VALUE VARY MIN  MAX  EXPR  BRUTE_STEP)
     params.add_many( 
-            ('mu', mu_s.value, False, mu_s.min, mu_s.max, None, None), 
-            ('_lambda', lambda_s.value, False, lambda_s.min, lambda_s.max, None, None), 
+            ('mu', mu_s.value, False, mu_s.min, mu_s.max, None, 0.01), 
+            ('_lambda', lambda_s.value, False, lambda_s.min, lambda_s.max, None, 0.01), 
             ('A', 0.0, True, A_s.min, A_s.max, None, None), 
-            ('alpha', alpha_s.value, True, alpha_s.min, alpha_s.max, None, None), 
-            ('delta', delta_s.value, False, delta_s.min, delta_s.max, None, None), 
-            ('phi_um', phi_um_s.value, True, phi_um_s.min, phi_um_s.max, None, None), 
-            ('gamma', gamma_s.value, True, gamma_s.min, gamma_s.max, None, None), 
-            ('beta', beta_s.value, True, beta_s.min, beta_s.max, None, None))
+            ('alpha', alpha_s.value, True, alpha_s.min, alpha_s.max, None, 0.01), 
+            ('delta', delta_s.value, False, delta_s.min, delta_s.max, None, 0.01), 
+            ('phi_um', phi_um_s.value, True, phi_um_s.min, phi_um_s.max, None, 0.01), 
+            ('gamma', gamma_s.value, True, gamma_s.min, gamma_s.max, None, 0.01), 
+            ('beta', beta_s.value, True, beta_s.min, beta_s.max, None, 0.01)
+            )
 
     output.clear_output()
     with output:
@@ -68,7 +94,8 @@ def retro_calc_Austin(b):
             retro_calc, 
             params, 
             args=(w0_exp, temp, flow_m, disc), 
-            method=opt_m.value)
+            method=opt_m.value,
+            )
 
     with output:
         display(HTML(value='<h4>Primeira Etapa Concluída</h4>'))
@@ -81,6 +108,7 @@ def retro_calc_Austin(b):
     phi_um_s.value = first_result.params['phi_um'].value
     gamma_s.value = first_result.params['gamma'].value
     beta_s.value = first_result.params['beta'].value
+    update_gran_plot()
 
     ##############################################################################
 
@@ -104,7 +132,9 @@ def retro_calc_Austin(b):
     second_result = minimize(
             retro_calc,
             params, 
-            args=(w0_exp, temp, flow_m, disc))
+            args=(w0_exp, temp, flow_m, disc),
+            method=opt_m.value,
+            )
 
     with output:
         display(HTML(value='<h4>Segunda Etapa Concluída</h4>'))
@@ -118,6 +148,7 @@ def retro_calc_Austin(b):
     gamma_s.value = second_result.params['gamma'].value
     beta_s.value = second_result.params['beta'].value
     delta_s.value = second_result.params['delta'].value
+    update_gran_plot()
 
     ###############################################################################
 
@@ -137,7 +168,12 @@ def retro_calc_Austin(b):
                 params
                 )
 
-    third_result = minimize(retro_calc, params, args=(w0_exp, temp, flow_m, pe_exp))
+    third_result = minimize(
+            retro_calc, 
+            params, 
+            args=(w0_exp, temp, flow_m, pe_exp),
+            method=opt_m.value,
+            )
 
     with output:
         display(HTML(value='<h4>Terceira Etapa Concluída</h4>'))
@@ -147,4 +183,5 @@ def retro_calc_Austin(b):
 
     mu_s.value = second_result.params['mu'].value
     lambda_s.value = second_result.params['lambda'].value
+    update_gran_plot()
     ##############################################################################

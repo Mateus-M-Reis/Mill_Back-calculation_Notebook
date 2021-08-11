@@ -159,16 +159,19 @@ def break_sim(b):
                 colors=[color_scale.iloc[i-1]]
                 )
 
-    gran_fig.marks = gran_fig.marks[0:n_temp+5]
-    
-    for i in range(1, n_temp+1):
-        plt.figure(0)
-        plt.plot(
-                x=size_mm[::-1],
-                y=ps_mat[:,::-1].cumsum(1)[i-1],
-                interpolation='basis',
-                stroke_width=2,
-                colors=[color_scale.iloc[i-1]])
+    if len(gran_fig.marks)>(n_temp+1):
+        for i in range(1, n_temp+1):
+            gran_fig.marks[i+n_temp].y = ps_mat[:,::-1].cumsum(1)[i-1]
+
+    else:
+        for i in range(1, n_temp+1):
+            plt.figure(0)
+            plt.plot(
+                    x=size_mm[::-1],
+                    y=ps_mat[:,::-1].cumsum(1)[i-1],
+                    interpolation='basis',
+                    stroke_width=2,
+                    colors=[color_scale.iloc[i-1]])
 
     with output:
         display( HTMLMath('$a_{i,j}$'), aij, aij.sum(0), HTML('<br />'),)

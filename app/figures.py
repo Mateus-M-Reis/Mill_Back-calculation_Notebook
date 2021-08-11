@@ -40,6 +40,19 @@ gran_fig = plt.figure(
         scale_x=xs, 
         scale_y=ys_lin
         )
+
+plt.plot(
+        x=size_mm, 
+        y=w0_exp[::-1].cumsum()[::-1],
+        axes_options=gran_ax_options,
+        scales={'x': xs, 'y': ys_lin},
+        colors=['gray'],
+        interpolation='linear',
+        stroke_width=2,
+        figure=gran_fig,
+        #scales={'x': xs, 'y': ys_lin}
+        ) 
+
 for i in range(n_temp):
     plt.scatter(
             x=size_mm, 
@@ -49,18 +62,6 @@ for i in range(n_temp):
             colors=[color_scale.iloc[i]],
             figure=gran_fig
             )
-
-    plt.plot(
-            x=size_mm, 
-            y=w0_exp[::-1].cumsum()[::-1],
-            axes_options=gran_ax_options,
-            scales={'x': xs, 'y': ys_lin},
-            colors=['gray'],
-            interpolation='linear',
-            stroke_width=2,
-            figure=gran_fig,
-            #scales={'x': xs, 'y': ys_lin}
-            ) 
 
 # Breakage Function Figure
 q_xax = bq.Axis(

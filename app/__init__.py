@@ -16,7 +16,7 @@ from .widgets import *
 from .figures import *
 from .layout import panel
 
-from .simulation import break_sim, selecao, calc_Bij
+from .simulation import break_sim, selecao, calc_Bij, break_sim
 from .retrocalc import retro_calc_Austin
 
 class App():
@@ -76,3 +76,4 @@ interactive_q_plot = interactive_output(
             'gamma':gamma_s,
             'beta':beta_s}
         )
+
