@@ -7,9 +7,10 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
+badd +1 index.py
 badd +1 app.py
 badd +1 app/widgets.py
-badd +46 app/__init__.py
+badd +36 app/__init__.py
 badd +1 app/simulation.py
 badd +107 app/figures.py
 badd +1 app/input.py
@@ -54,7 +55,7 @@ normal! zt
 normal! 0
 wincmd w
 argglobal
-if bufexists("app.py") | buffer app.py | else | edit app.py | endif
+if bufexists("index.py") | buffer index.py | else | edit index.py | endif
 setlocal fdm=indent
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -105,7 +106,7 @@ normal! zt
 36
 normal! 0
 wincmd w
-3wincmd w
+2wincmd w
 exe 'vert 1resize ' . ((&columns * 75 + 113) / 227)
 exe 'vert 2resize ' . ((&columns * 75 + 113) / 227)
 exe 'vert 3resize ' . ((&columns * 75 + 113) / 227)
@@ -146,7 +147,7 @@ if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 3
-normal! 02|
+normal! 03|
 wincmd w
 argglobal
 if bufexists("app/layout.py") | buffer app/layout.py | else | edit app/layout.py | endif
@@ -167,7 +168,7 @@ if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 73
-normal! 01|
+normal! 0
 wincmd w
 argglobal
 if bufexists("app/figures.py") | buffer app/figures.py | else | edit app/figures.py | endif
@@ -229,11 +230,11 @@ setlocal fdn=20
 setlocal fen
 114
 normal! zo
-let s:l = 129 - ((124 * winheight(0) + 27) / 55)
+let s:l = 130 - ((125 * winheight(0) + 27) / 55)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-129
+130
 normal! 0
 wincmd w
 argglobal

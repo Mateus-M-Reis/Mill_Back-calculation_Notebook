@@ -181,27 +181,7 @@ def break_sim(b):
         display(HTML(value='<h3> Frequência Acumulada </h3>'))
         print(ps_mat[:, ::-1].cumsum(1))
 
-#def selecao(mu, _lambda, A, alpha):
-#    S = (A*(size_rel)**alpha)*(1/(1+(size_mm/mu)**_lambda))
-#    S[n_inter-1] = 0
-#    return S
-#def calc_Bij(delta, phi_um, gamma, beta):
-#    phi_j = (phi_um*(size_mm/size_mm[0])**(-delta))[::-1]
-#    for l in range(n_inter):
-#        if phi_j[l]>1.0:
-#            phi_j[l] = 1.0
-#    for j in range(1, n_inter+1):
-#        for i in range(1, n_inter+1):
-#            if i < j:
-#                Bij[i-1,j-1] = 0.0
-#            elif i==j:
-#                Bij[i-1,j-1] = 1.0
-#            else:
-#                if phi_j[j-1] > 1.0:
-#                    phi_j[j-1] = 1.0
-#                else:
-#                    Bij[i-1,j-1] = phi_j[j-1]*((size_mm[i-1]/size_mm[j-1+1])**gamma) +                 (1-phi_j[j-1])*((size_mm[i-1]/size_mm[j-1+1])**beta)
-#
+
 # aij = np.zeros((np.int(n_inter), np.int(n_inter)))
 # #a_step = np.array()
 # output.clear_output()
