@@ -13,7 +13,7 @@ charset-normalizer==2.0.4
 contextvars==2.4
 corner==2.2.1
 cycler==0.10.0
-dataclasses==0.8
+dataclasses
 decorator==5.0.9
 defusedxml==0.7.1
 entrypoints==0.3
