@@ -7,18 +7,19 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +1 index.py
+badd +7 index.py
 badd +1 app.py
 badd +1 app/widgets.py
 badd +36 app/__init__.py
 badd +1 app/simulation.py
 badd +107 app/figures.py
-badd +1 app/input.py
+badd +4 app/input.py
 badd +109 app/layout.py
 badd +74 app/retrocalc.py
-badd +1 README.md
+badd +2 README.md
 badd +2 environment.yml
-badd +0 requirements.txt
+badd +1 requirements.txt
+badd +1 .gitignore
 argglobal
 %argdel
 $argadd app.py
@@ -29,6 +30,10 @@ vsplit
 wincmd _ | wincmd |
 vsplit
 2wincmd h
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
 wincmd w
 wincmd w
 set nosplitbelow
@@ -38,9 +43,12 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
+exe '1resize ' . ((&lines * 27 + 29) / 58)
 exe 'vert 1resize ' . ((&columns * 75 + 113) / 227)
+exe '2resize ' . ((&lines * 27 + 29) / 58)
 exe 'vert 2resize ' . ((&columns * 75 + 113) / 227)
 exe 'vert 3resize ' . ((&columns * 75 + 113) / 227)
+exe 'vert 4resize ' . ((&columns * 75 + 113) / 227)
 argglobal
 setlocal fdm=indent
 setlocal fde=0
@@ -50,12 +58,29 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 2 - ((1 * winheight(0) + 27) / 55)
+let s:l = 1 - ((0 * winheight(0) + 13) / 27)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-2
-normal! 03|
+1
+normal! 0
+wincmd w
+argglobal
+if bufexists(".gitignore") | buffer .gitignore | else | edit .gitignore | endif
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 1 - ((0 * winheight(0) + 13) / 27)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+1
+normal! 0
 wincmd w
 argglobal
 if bufexists("requirements.txt") | buffer requirements.txt | else | edit requirements.txt | endif
@@ -91,9 +116,13 @@ normal! zt
 2
 normal! 0
 wincmd w
+2wincmd w
+exe '1resize ' . ((&lines * 27 + 29) / 58)
 exe 'vert 1resize ' . ((&columns * 75 + 113) / 227)
+exe '2resize ' . ((&lines * 27 + 29) / 58)
 exe 'vert 2resize ' . ((&columns * 75 + 113) / 227)
 exe 'vert 3resize ' . ((&columns * 75 + 113) / 227)
+exe 'vert 4resize ' . ((&columns * 75 + 113) / 227)
 tabedit index.py
 set splitbelow splitright
 wincmd _ | wincmd |
@@ -101,6 +130,10 @@ vsplit
 wincmd _ | wincmd |
 vsplit
 2wincmd h
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
 wincmd w
 wincmd w
 set nosplitbelow
@@ -110,9 +143,12 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
+exe '1resize ' . ((&lines * 27 + 29) / 58)
 exe 'vert 1resize ' . ((&columns * 75 + 113) / 227)
+exe '2resize ' . ((&lines * 27 + 29) / 58)
 exe 'vert 2resize ' . ((&columns * 75 + 113) / 227)
 exe 'vert 3resize ' . ((&columns * 75 + 113) / 227)
+exe 'vert 4resize ' . ((&columns * 75 + 113) / 227)
 argglobal
 setlocal fdm=indent
 setlocal fde=0
@@ -122,12 +158,29 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 7 - ((6 * winheight(0) + 27) / 55)
+let s:l = 1 - ((0 * winheight(0) + 13) / 27)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-7
+1
 normal! 0
+wincmd w
+argglobal
+if bufexists("app/input.py") | buffer app/input.py | else | edit app/input.py | endif
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 46 - ((26 * winheight(0) + 13) / 27)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+46
+normal! 02|
 wincmd w
 argglobal
 if bufexists("app/__init__.py") | buffer app/__init__.py | else | edit app/__init__.py | endif
@@ -174,16 +227,19 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 3 - ((2 * winheight(0) + 27) / 55)
+let s:l = 5 - ((4 * winheight(0) + 27) / 55)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-3
+5
 normal! 0
 wincmd w
+exe '1resize ' . ((&lines * 27 + 29) / 58)
 exe 'vert 1resize ' . ((&columns * 75 + 113) / 227)
+exe '2resize ' . ((&lines * 27 + 29) / 58)
 exe 'vert 2resize ' . ((&columns * 75 + 113) / 227)
 exe 'vert 3resize ' . ((&columns * 75 + 113) / 227)
+exe 'vert 4resize ' . ((&columns * 75 + 113) / 227)
 tabedit app/widgets.py
 set splitbelow splitright
 wincmd _ | wincmd |
@@ -265,7 +321,7 @@ if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 45
-normal! 0
+normal! 03|
 wincmd w
 exe 'vert 1resize ' . ((&columns * 75 + 113) / 227)
 exe 'vert 2resize ' . ((&columns * 75 + 113) / 227)
@@ -340,7 +396,7 @@ if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 139
-normal! 06|
+normal! 08|
 wincmd w
 exe 'vert 1resize ' . ((&columns * 113 + 113) / 227)
 exe 'vert 2resize ' . ((&columns * 113 + 113) / 227)

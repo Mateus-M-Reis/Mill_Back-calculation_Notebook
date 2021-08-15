@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-df = pd.read_excel('./dados/input.xlsx', sheet_name='input', header=None)
+df = pd.read_excel('./dados/input.xlsx', sheet_name='input', header=None, engine='openpyxl')
 
 n_temp = np.int(df.iloc[0,1])
 n_inter = np.int(df.iloc[0,2])
