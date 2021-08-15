@@ -11,15 +11,90 @@ badd +1 index.py
 badd +1 app.py
 badd +1 app/widgets.py
 badd +36 app/__init__.py
-badd +167 app/simulation.py
+badd +1 app/simulation.py
 badd +107 app/figures.py
 badd +1 app/input.py
 badd +109 app/layout.py
-badd +30 app/retrocalc.py
+badd +74 app/retrocalc.py
+badd +1 README.md
+badd +2 environment.yml
+badd +0 requirements.txt
 argglobal
 %argdel
 $argadd app.py
-edit index.py
+edit README.md
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+wincmd _ | wincmd |
+vsplit
+2wincmd h
+wincmd w
+wincmd w
+set nosplitbelow
+set nosplitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe 'vert 1resize ' . ((&columns * 75 + 113) / 227)
+exe 'vert 2resize ' . ((&columns * 75 + 113) / 227)
+exe 'vert 3resize ' . ((&columns * 75 + 113) / 227)
+argglobal
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 2 - ((1 * winheight(0) + 27) / 55)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+2
+normal! 03|
+wincmd w
+argglobal
+if bufexists("requirements.txt") | buffer requirements.txt | else | edit requirements.txt | endif
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 1 - ((0 * winheight(0) + 27) / 55)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+1
+normal! 0
+wincmd w
+argglobal
+if bufexists("environment.yml") | buffer environment.yml | else | edit environment.yml | endif
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 2 - ((1 * winheight(0) + 27) / 55)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+2
+normal! 0
+wincmd w
+exe 'vert 1resize ' . ((&columns * 75 + 113) / 227)
+exe 'vert 2resize ' . ((&columns * 75 + 113) / 227)
+exe 'vert 3resize ' . ((&columns * 75 + 113) / 227)
+tabedit index.py
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
@@ -82,12 +157,12 @@ normal! zo
 normal! zo
 61
 normal! zc
-let s:l = 36 - ((35 * winheight(0) + 27) / 55)
+let s:l = 35 - ((34 * winheight(0) + 27) / 55)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-36
-normal! 0
+35
+normal! 06|
 wincmd w
 argglobal
 if bufexists("app/input.py") | buffer app/input.py | else | edit app/input.py | endif
@@ -106,7 +181,6 @@ normal! zt
 3
 normal! 0
 wincmd w
-2wincmd w
 exe 'vert 1resize ' . ((&columns * 75 + 113) / 227)
 exe 'vert 2resize ' . ((&columns * 75 + 113) / 227)
 exe 'vert 3resize ' . ((&columns * 75 + 113) / 227)
@@ -147,7 +221,7 @@ if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 3
-normal! 05|
+normal! 09|
 wincmd w
 argglobal
 if bufexists("app/layout.py") | buffer app/layout.py | else | edit app/layout.py | endif
@@ -163,12 +237,12 @@ setlocal fen
 normal! zo
 66
 normal! zo
-let s:l = 73 - ((72 * winheight(0) + 27) / 55)
+let s:l = 1 - ((0 * winheight(0) + 27) / 55)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-73
-normal! 0
+1
+normal! 02|
 wincmd w
 argglobal
 if bufexists("app/figures.py") | buffer app/figures.py | else | edit app/figures.py | endif
@@ -182,28 +256,16 @@ setlocal fdn=20
 setlocal fen
 32
 normal! zo
-44
+45
 normal! zo
 45
 normal! zo
-54
-normal! zo
-67
-normal! zo
-72
-normal! zo
-79
-normal! zo
-79
-normal! zo
-87
-normal! zo
-let s:l = 45 - ((44 * winheight(0) + 27) / 55)
+let s:l = 45 - ((0 * winheight(0) + 27) / 55)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 45
-normal! 01|
+normal! 0
 wincmd w
 exe 'vert 1resize ' . ((&columns * 75 + 113) / 227)
 exe 'vert 2resize ' . ((&columns * 75 + 113) / 227)
@@ -236,8 +298,6 @@ setlocal fen
 normal! zo
 114
 normal! zo
-165
-normal! zo
 167
 normal! zo
 168
@@ -265,13 +325,21 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-43
+42
 normal! zo
-let s:l = 140 - ((66 * winheight(0) + 27) / 55)
+42
+normal! zc
+68
+normal! zo
+72
+normal! zo
+72
+normal! zo
+let s:l = 139 - ((31 * winheight(0) + 27) / 55)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-140
+139
 normal! 06|
 wincmd w
 exe 'vert 1resize ' . ((&columns * 113 + 113) / 227)

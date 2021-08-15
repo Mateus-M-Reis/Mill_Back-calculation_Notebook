@@ -71,7 +71,7 @@ def retro_calc_Austin(b):
     params.add_many( 
             ('mu', mu_s.value, False, mu_s.min, mu_s.max, None, 0.01), 
             ('_lambda', lambda_s.value, False, lambda_s.min, lambda_s.max, None, 0.01), 
-            ('A', 0.0, True, A_s.min, A_s.max, None, None), 
+            ('A', 0.0, True, A_s.min, A_s.max, None, 0.01), 
             ('alpha', alpha_s.value, True, alpha_s.min, alpha_s.max, None, 0.01), 
             ('delta', delta_s.value, False, delta_s.min, delta_s.max, None, 0.01), 
             ('phi_um', phi_um_s.value, True, phi_um_s.min, phi_um_s.max, None, 0.01), 
