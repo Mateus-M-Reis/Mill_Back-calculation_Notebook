@@ -23,7 +23,7 @@ idna==3.2
 immutables==0.16
 importlib-metadata==4.6.4
 ipykernel==5.5.5
-ipython==7.16.1
+ipython==7.16.3
 ipython-genutils==0.2.0
 ipywidgets==7.6.3
 jedi==0.18.0
