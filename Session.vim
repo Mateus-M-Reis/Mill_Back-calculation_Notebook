@@ -2,12 +2,12 @@ let SessionLoad = 1
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/Códigos/Mill_Back-calculation_Notebook
+cd ~/Códigos/retrocalc
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +7 index.py
+badd +1 index.py
 badd +1 app.py
 badd +1 app/widgets.py
 badd +36 app/__init__.py
@@ -16,7 +16,7 @@ badd +107 app/figures.py
 badd +4 app/input.py
 badd +109 app/layout.py
 badd +74 app/retrocalc.py
-badd +2 README.md
+badd +1 README.md
 badd +2 environment.yml
 badd +1 requirements.txt
 badd +1 .gitignore
@@ -43,9 +43,9 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe '1resize ' . ((&lines * 27 + 29) / 58)
+exe '1resize ' . ((&lines * 26 + 28) / 56)
 exe 'vert 1resize ' . ((&columns * 75 + 113) / 227)
-exe '2resize ' . ((&lines * 27 + 29) / 58)
+exe '2resize ' . ((&lines * 26 + 28) / 56)
 exe 'vert 2resize ' . ((&columns * 75 + 113) / 227)
 exe 'vert 3resize ' . ((&columns * 75 + 113) / 227)
 exe 'vert 4resize ' . ((&columns * 75 + 113) / 227)
@@ -58,7 +58,7 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 1 - ((0 * winheight(0) + 13) / 27)
+let s:l = 1 - ((0 * winheight(0) + 13) / 26)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -75,7 +75,7 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 1 - ((0 * winheight(0) + 13) / 27)
+let s:l = 1 - ((0 * winheight(0) + 13) / 26)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -92,7 +92,7 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 1 - ((0 * winheight(0) + 27) / 55)
+let s:l = 1 - ((0 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -109,7 +109,7 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 2 - ((1 * winheight(0) + 27) / 55)
+let s:l = 2 - ((1 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -117,9 +117,9 @@ normal! zt
 normal! 0
 wincmd w
 2wincmd w
-exe '1resize ' . ((&lines * 27 + 29) / 58)
+exe '1resize ' . ((&lines * 26 + 28) / 56)
 exe 'vert 1resize ' . ((&columns * 75 + 113) / 227)
-exe '2resize ' . ((&lines * 27 + 29) / 58)
+exe '2resize ' . ((&lines * 26 + 28) / 56)
 exe 'vert 2resize ' . ((&columns * 75 + 113) / 227)
 exe 'vert 3resize ' . ((&columns * 75 + 113) / 227)
 exe 'vert 4resize ' . ((&columns * 75 + 113) / 227)
@@ -143,9 +143,9 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe '1resize ' . ((&lines * 27 + 29) / 58)
+exe '1resize ' . ((&lines * 26 + 28) / 56)
 exe 'vert 1resize ' . ((&columns * 75 + 113) / 227)
-exe '2resize ' . ((&lines * 27 + 29) / 58)
+exe '2resize ' . ((&lines * 26 + 28) / 56)
 exe 'vert 2resize ' . ((&columns * 75 + 113) / 227)
 exe 'vert 3resize ' . ((&columns * 75 + 113) / 227)
 exe 'vert 4resize ' . ((&columns * 75 + 113) / 227)
@@ -158,7 +158,7 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 1 - ((0 * winheight(0) + 13) / 27)
+let s:l = 1 - ((0 * winheight(0) + 13) / 26)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -175,7 +175,7 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 46 - ((26 * winheight(0) + 13) / 27)
+let s:l = 46 - ((25 * winheight(0) + 13) / 26)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -210,7 +210,7 @@ normal! zo
 normal! zo
 61
 normal! zc
-let s:l = 35 - ((34 * winheight(0) + 27) / 55)
+let s:l = 35 - ((33 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -227,16 +227,16 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 5 - ((4 * winheight(0) + 27) / 55)
+let s:l = 5 - ((4 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 5
 normal! 0
 wincmd w
-exe '1resize ' . ((&lines * 27 + 29) / 58)
+exe '1resize ' . ((&lines * 26 + 28) / 56)
 exe 'vert 1resize ' . ((&columns * 75 + 113) / 227)
-exe '2resize ' . ((&lines * 27 + 29) / 58)
+exe '2resize ' . ((&lines * 26 + 28) / 56)
 exe 'vert 2resize ' . ((&columns * 75 + 113) / 227)
 exe 'vert 3resize ' . ((&columns * 75 + 113) / 227)
 exe 'vert 4resize ' . ((&columns * 75 + 113) / 227)
@@ -272,7 +272,7 @@ setlocal fen
 normal! zo
 118
 normal! zo
-let s:l = 3 - ((2 * winheight(0) + 27) / 55)
+let s:l = 3 - ((2 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -293,7 +293,7 @@ setlocal fen
 normal! zo
 66
 normal! zo
-let s:l = 1 - ((0 * winheight(0) + 27) / 55)
+let s:l = 1 - ((0 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -316,7 +316,7 @@ normal! zo
 normal! zo
 45
 normal! zo
-let s:l = 45 - ((0 * winheight(0) + 27) / 55)
+let s:l = 45 - ((0 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -364,7 +364,7 @@ normal! zo
 normal! zo
 177
 normal! zo
-let s:l = 168 - ((56 * winheight(0) + 27) / 55)
+let s:l = 168 - ((54 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -391,7 +391,7 @@ normal! zo
 normal! zo
 72
 normal! zo
-let s:l = 139 - ((31 * winheight(0) + 27) / 55)
+let s:l = 139 - ((30 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
