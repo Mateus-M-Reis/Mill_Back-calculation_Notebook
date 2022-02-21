@@ -33,8 +33,9 @@ def retro_calc(vals,
         ps_mat[i-1] = ps
         
     wi_mc = np.ones((n_temp, n_inter)) - np.divide((np.subtract(disc[:,::-1].cumsum(1), 
-                                                                ps_mat[:,::-1].cumsum(1))**2), 
-                                                   ps_mat[:,::-1].cumsum(1))[::-1]
+        ps_mat[:,::-1].cumsum(1))**2), 
+        ps_mat[:,::-1].cumsum(1)
+        )[::-1]
     
     return (wi_mc * (np.subtract(disc, ps_mat)**2)).sum(1)
 
@@ -112,11 +113,11 @@ def retro_calc_Austin(b):
 
     ##############################################################################
 
-    params['A'].set(value=first_result.params['A'].value)
-    params['alpha'].set(value=first_result.params['alpha'].value)
-    params['phi_um'].set(value=first_result.params['phi_um'].value)
-    params['gamma'].set(value=first_result.params['gamma'].value)
-    params['beta'].set(value=first_result.params['beta'].value)
+    params['A'].set(value=first_result.params['A'].value, vary=False)
+    params['alpha'].set(value=first_result.params['alpha'].value, vary=False)
+    params['phi_um'].set(value=first_result.params['phi_um'].value, vary=False)
+    params['gamma'].set(value=first_result.params['gamma'].value, vary=False)
+    params['beta'].set(value=first_result.params['beta'].value, vary=False)
     params['delta'].set(vary=True)
 
     with output:
@@ -142,46 +143,46 @@ def retro_calc_Austin(b):
         display( report_fit(second_result) )
         print('###################################################################')
 
-    A_s.value = second_result.params['A'].value
-    alpha_s.value = second_result.params['alpha'].value
-    phi_um_s.value = second_result.params['phi_um'].value
-    gamma_s.value = second_result.params['gamma'].value
-    beta_s.value = second_result.params['beta'].value
+    #A_s.value = second_result.params['A'].value
+    #alpha_s.value = second_result.params['alpha'].value
+    #phi_um_s.value = second_result.params['phi_um'].value
+    #gamma_s.value = second_result.params['gamma'].value
+    #beta_s.value = second_result.params['beta'].value
     delta_s.value = second_result.params['delta'].value
     update_gran_plot()
 
     ###############################################################################
 
-    params['mu'].set(vary=True)
-    params['_lambda'].set(vary=True)
-    params['A'].set(value=second_result.params['A'].value, vary=False)
-    params['alpha'].set(value=second_result.params['alpha'].value, vary=False)
-    params['phi_um'].set(value=second_result.params['phi_um'].value, vary=False)
-    params['gamma'].set(value=second_result.params['gamma'].value, vary=False)
-    params['beta'].set(value=second_result.params['beta'].value, vary=False)
-    params['delta'].set(value=second_result.params['delta'].value, vary=False)
+    #params['mu'].set(vary=True)
+    #params['_lambda'].set(vary=True)
+    ##params['A'].set(value=second_result.params['A'].value, vary=False)
+    ##params['alpha'].set(value=second_result.params['alpha'].value, vary=False)
+    ##params['phi_um'].set(value=second_result.params['phi_um'].value, vary=False)
+    ##params['gamma'].set(value=second_result.params['gamma'].value, vary=False)
+    ##params['beta'].set(value=second_result.params['beta'].value, vary=False)
+    #params['delta'].set(value=second_result.params['delta'].value, vary=False)
 
-    with output:
-        display(
-                HTML(value='<h3>Iniciando Terceira Etapa</h3>'),
-                Label( value='Varing the foloowing variables:\n $\mu$, $\Lambda$' ),
-                params
-                )
+    #with output:
+    #    display(
+    #            HTML(value='<h3>Iniciando Terceira Etapa</h3>'),
+    #            Label( value='Varing the foloowing variables:\n $\mu$, $\Lambda$' ),
+    #            params
+    #            )
 
-    third_result = minimize(
-            retro_calc, 
-            params, 
-            args=(w0_exp, temp, flow_m, pe_exp),
-            method=opt_m.value,
-            )
+    #third_result = minimize(
+    #        retro_calc, 
+    #        params, 
+    #        args=(w0_exp, temp, flow_m, pe_exp),
+    #        method=opt_m.value,
+    #        )
 
-    with output:
-        display(HTML(value='<h4>Terceira Etapa Concluída</h4>'))
-        print('###################################################################')
-        display(report_fit(third_result))
-        print('###################################################################')
+    #with output:
+    #    display(HTML(value='<h4>Terceira Etapa Concluída</h4>'))
+    #    print('###################################################################')
+    #    display(report_fit(third_result))
+    #    print('###################################################################')
 
-    mu_s.value = second_result.params['mu'].value
-    lambda_s.value = second_result.params['lambda'].value
-    update_gran_plot()
-    ##############################################################################
+    #mu_s.value = second_result.params['mu'].value
+    #lambda_s.value = second_result.params['lambda'].value
+    #update_gran_plot()
+    ###############################################################################

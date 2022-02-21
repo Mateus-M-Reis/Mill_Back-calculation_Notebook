@@ -8,12 +8,12 @@ from .figures import gran_fig, color_scale, gran_ax_options
 from .layout import panel
 
 def selecao(mu, _lambda, A, alpha):
-    S = (A*(size_rel)**alpha)*(1/(1+(size_mm/mu)**_lambda))
-    S[n_inter-1] = 0
+    S = (A*(size_mm/size_mm[0])**alpha)*(1/(1+(size_mm/mu))**_lambda)
+    #S[n_inter-1] = 0
     return S
 
 def calc_Bij(delta, phi_um, gamma, beta):
-    phi_j = (phi_um*(size_mm/size_mm[0])**(-delta))[::-1]
+    phi_j = (phi_um*(size_mm/size_mm[0])**(-delta))#[::-1]
     for l in range(n_inter):
         if phi_j[l]>1.0:
             phi_j[l] = 1.0
@@ -151,13 +151,13 @@ def break_sim(b):
         ps = calc_pi(aij, ej)
         ps_mat[i-1] = ps
 
-        plt.figure(4)
-        plt.plot(
-                x=size_mm,
-                y=ej, 
-                interpolation='basis', 
-                colors=[color_scale.iloc[i-1]]
-                )
+        #plt.figure(4)
+        #plt.plot(
+        #        x=size_mm,
+        #        y=ej, 
+        #        interpolation='basis', 
+        #        colors=[color_scale.iloc[i-1]]
+        #        )
 
     if len(gran_fig.marks)>(n_temp+1):
         for i in range(1, n_temp+1):
@@ -183,60 +183,3 @@ def break_sim(b):
         print('\n', ps_mat)
         display(HTML(value='<h3> Frequência Acumulada </h3>'))
         print(ps_mat[:, ::-1].cumsum(1))
-
-
-# aij = np.zeros((np.int(n_inter), np.int(n_inter)))
-# #a_step = np.array()
-# output.clear_output()
-# i=1
-# j=1
-# def calc_aij_t(Ss, bs, fi):
-#     for j in range(1, n_inter+1):
-#         with output:
-# print('\n################################################################################\n',
-#                   'j =', j,
-#                   '\n
-# ################################################################################')
-#         for i in range(1, n_inter+1):
-
-#if i<j:
-#    aij[i-1,j-1] = 0.0
-#    with output:
-#        print('\n', i,  j,'\t i < j \t\t\t aij(i,j) = ', 
-#                aij[i-1, j-1], '\tOK\n ###############################################')   
-#
-#elif i==j:
-#    if i==1:
-#        aij[i-1, j-1] = fi[i-1]
-#        with output:
-#            print('\n', i,  j,'\t i = j \t  i=1 \t\t aij(i,j) = ', aij[i-1, j-1], '\n') 
-#    elif i>1:
-#        k=1
-#        a_step = np.zeros(i-1-k+1)
-#        for k in range(1, i-1+1):
-#            a_step[k-1] = aij[i-1, k-1]
-#        with output:
-#            print('\n', a_step)
-#
-#        aij[i-1, j-1] = fi[i-1] - a_step.sum()
-#        with output:
-#            print('\n', i,  j,'\t i = j \t  i>1 \t\t aij(i,j) = ', aij[i-1, j-1], '\n')
-#elif i>j:
-#    with output:
-#        print('###############################################\n', i,  j,'\t i > j \n')
-#        k=j
-#        a_step = np.zeros((i-1-k+1))
-#        for k in range(j, i-1+1):
-#            a_step[k-j] = Ss[k-1] * bs[i-1,k-1] * aij[k-1,j-1]
-#        with output:
-#            print('\n', a_step)
-#        aij[i-1,j-1] = 1/(Ss[i-1]-Ss[j-1]) * a_step.sum()
-#    with output:
-#        print('\n', 1/(Ss[i-1]-Ss[j-1]), '\n\n\t\taij(i,j) =', aij[i-1, j-1], '\n')
-#    return aij
-
-
-# aij=calc_aij_t(Si, bij, w0_exp)
-# print(aij, '\n\n', aij.sum(0))
-
-

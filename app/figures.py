@@ -6,13 +6,18 @@ from bqplot import Axis
 
 from .input import *
 from .widgets import *
-#from .simulation import *
+#from .simulation import selecao, calc_Bij
 
 #### scales
-xs_lin = bq.LinearScale(min=0.25, max=6)
-xs = bq.LogScale(min=0.25, max=6)
-ys_lin = bq.LinearScale(min=0.05, max=1)
-ys = bq.LogScale(min=0.05, max=1)
+xs_lin = bq.LinearScale(min=0.03, max=size_mm[0]+1)
+xs = bq.LogScale(min=0.03, max=size_mm[0]+1)
+
+ys_lin = bq.LinearScale(min=0.0, max=100)
+ys_lin1 = bq.LinearScale(min=0.0, max=1)
+
+ys = bq.LogScale(min=1, max=100)
+ys1 = bq.LogScale(min=0.01, max=1)
+
 color_scale = pd.Series(plt.COLOR_CODES)
 color_scale.index = range(color_scale.size)
 
@@ -21,12 +26,15 @@ gran_ax_options={
         'x': dict(
             label='Size (mm)', 
             grid_lines='solid', 
-            orientation='horizontal'), 
+            orientation='horizontal',
+            #tick_format='0.2f',
+            ), 
         'y': dict(
             label='Porcentagem Passante Acumulada', 
             grid_lines='solid', 
             orientation='vertical', 
-            tick_format='0.2f')
+            tick_format='0.1f'
+            )
         }
 gran_fig = plt.figure(
         0, 
@@ -67,19 +75,22 @@ for i in range(n_temp):
 q_xax = bq.Axis(
         scale=xs, 
         label='Size (mm)', 
-        grid_lines='solid'
+        grid_lines='solid',
+        tick_format='0.1f',
+        tick_values=[0.1, 1],
         )
 q_yax = bq.Axis(
-        scale=ys, 
+        scale=ys1, 
         orientation='vertical', 
-        tick_format='0.2f', 
         label='Parâmetro de Quebra cumulativo, Bi,j', 
-        grid_lines='solid'
+        grid_lines='solid',
+        tick_format='0.1f', 
+        tick_values=[0.1, 0.5, 1],
         )
 q_line = bq.Lines(
         x=size_mm, 
-        y=bij[:,0][::-1].cumsum()[::-1],                  
-        scales={'x': xs, 'y': ys}, 
+        y=Bij[:,0],#bij[:,0][::-1].cumsum()[::-1],                  
+        scales={'x': xs, 'y': ys1}, 
         colors = ['magenta'], 
         stroke_width = 2, 
         interpolation = 'basis'
@@ -92,23 +103,31 @@ q_fig= bq.Figure(
         marks=[q_line],  
         animation_duration=1000,
         axes_options=gran_ax_options,
+        fig_margin={'top':0,'bottom':40, 'left':50, 'right':50},
         )
-q_fig.layout.height= '80%'
+q_fig.layout.height= '100%'
 q_fig.layout.width= '100%'
 
 # Selection Function Figure
-s_xax = bq.Axis(scale=xs, label='Size (mm)', grid_lines='solid')
+s_xax = bq.Axis(
+        scale=xs, 
+        label='Size (mm)', 
+        grid_lines='solid',
+        tick_format='0.1f',
+        tick_values=[0.1, 1],
+        )
 s_yax = bq.Axis(
-        scale=ys, 
+        scale=ys1, 
         orientation='vertical', 
-        tick_format='0.2f', 
         label='Taxa Específica de Quebra, min^-1', 
-        grid_lines='solid'
+        grid_lines='solid',
+        tick_format='0.1f', 
+        tick_values=[0.1, 0.5, 1],
         )
 s_line = bq.Lines(
         x=size_mm, 
         y=Si, 
-        scales={'x': xs, 'y': ys}, 
+        scales={'x': xs, 'y': ys1}, 
         colors = ['cyan'], 
         stroke_width = 2,                 
         interpolation = 'basis'
@@ -127,6 +146,7 @@ s_fig= bq.Figure(
         marks=[s_line, si_exp_scatter], 
         animation_duration=1000,
         axes_options=gran_ax_options,
+        fig_margin={'top':0,'bottom':40, 'left':50, 'right':50},
         )
-s_fig.layout.height= '80%'
+s_fig.layout.height= '100%'
 s_fig.layout.width= '100%'

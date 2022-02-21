@@ -13,10 +13,10 @@ pd.options.display.float_format = '{:,.4f}'.format
 np.set_printoptions(linewidth=150, precision=4, suppress=True)
 
 from .widgets import *
-from .figures import *
+from .figures import gran_fig, q_fig, s_fig, s_line, q_line, xs, ys, ys_lin
 from .layout import panel
 
-from .simulation import break_sim, selecao, calc_Bij, break_sim
+from .simulation import selecao, calc_Bij, break_sim
 from .retrocalc import retro_calc_Austin
 
 class App():
@@ -74,6 +74,7 @@ interactive_q_plot = interactive_output(
             'delta':delta_s, 
             'phi_um':phi_um_s, 
             'gamma':gamma_s,
-            'beta':beta_s}
+            'beta':beta_s
+            }
         )
 

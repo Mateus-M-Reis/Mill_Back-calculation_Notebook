@@ -94,7 +94,7 @@ flow_m= Dropdown(
             ],
         value='batch-plug flow', 
         description='Flow Model:', 
-        disabled=False,
+        disabled=True,
         layout=Layout(width='100%'),
         style={'description_width': '27%'}
         )

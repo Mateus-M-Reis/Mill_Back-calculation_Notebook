@@ -4,7 +4,7 @@ from .widgets import *
 from .figures import *
 
 wids = HBox(
-        [ Retro_buttom, Run_sim, flow_m, opt_m ],
+        [ Retro_buttom, Run_sim, opt_m ],
         layout=Layout(
             #border='1px solid red', 
             width = '100%',
