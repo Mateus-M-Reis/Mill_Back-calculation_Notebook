@@ -7,6 +7,8 @@ from .widgets import *
 from .figures import gran_fig, color_scale, gran_ax_options
 from .layout import panel
 
+R=1/np.sqrt(2)
+
 def selecao(mu, _lambda, A, alpha):
     S = (A*(size_mm/size_mm[0])**alpha)*(1/(1+(size_mm/mu))**_lambda)
     #S[n_inter-1] = 0
@@ -24,11 +26,14 @@ def calc_Bij(delta, phi_um, gamma, beta):
             elif i==j:
                 Bij[i-1,j-1] = 1.0
             else:
-                if phi_j[j-1] > 1.0:
-                    phi_j[j-1] = 1.0
-                else:
-                    Bij[i-1,j-1] = phi_j[j-1]*((size_mm[i-1]/size_mm[j-1+1])**gamma) + \
-                (1-phi_j[j-1])*((size_mm[i-1]/size_mm[j-1+1])**beta)
+                #Bij[i-1,j-1] = phi_j[j-1]*((size_mm[i-1-1]/size_mm[j-1])**gamma) + \
+                #        (1-phi_j[j-1])*((size_mm[i-1-1]/size_mm[j-1])**beta)
+                #Bij[i-1,j-1] = phi_j[0]*((size_mm[i-1-1]/size_mm[0])**gamma) + \
+                #        (1-phi_j[0])*((size_mm[i-1-1]/size_mm[0])**beta)
+                Bij[i-1,j-1] = phi_j[j-1]*R**((i-j-1)*gamma) + \
+                        (1-phi_j[j-1])*R**((i-j-1)*beta)
+                #Bij[i-1,j-1] = phi_j[0]*R**((i-2)*gamma) + \
+                #        (1-phi_j[0])*R**((i-2)*beta)
     return Bij
 
 def calc_bij(Bij_mat):
@@ -42,7 +47,7 @@ def calc_bij(Bij_mat):
                 bij[i,j] = Bij_mat[i,j] - Bij_mat[i+1,j]
     return bij
 
-def calc_ej(tempo, Ss, flow_wid):
+def calc_ej(tempo, Ss, flow_wid): 
     if flow_wid.value == 'batch-plug flow':
         e = np.exp(-Ss*tempo)
     elif flow_wid.value == 'fully mixed grinding':
@@ -115,21 +120,13 @@ def break_sim(b):
     with output:
         display( 
                 HTML('<h1>Starting Simulation</h1>'),
-                HTML(value='<h2>Breakage and Selection Functions</h2>')
-                )
-
-    ej_fig = plt.figure(
-            4, 
-            layout={'height':'300px', 'width':'580px'},
-            fig_margin={'top':30,'bottom':30, 'left':30, 'right':30},
-            title='ej')
-    plt.clear()
+                HTML(value='<h2>Breakage and Selection Functions</h2>'))
 
     ps_mat = np.zeros((n_temp, n_inter))
 
     Si = selecao(mu_s.value, lambda_s.value, A_s.value, alpha_s.value)
     with output:
-        display( HTMLMath('$ S_i= $'), Si, HTML('<br />') )
+        display(HTMLMath('$ S_i= $'), Si, HTML('<br />') )
 
     Bij = calc_Bij(delta_s.value, phi_um_s.value, gamma_s.value, beta_s.value)
     with output:
@@ -151,13 +148,6 @@ def break_sim(b):
         ps = calc_pi(aij, ej)
         ps_mat[i-1] = ps
 
-        #plt.figure(4)
-        #plt.plot(
-        #        x=size_mm,
-        #        y=ej, 
-        #        interpolation='basis', 
-        #        colors=[color_scale.iloc[i-1]]
-        #        )
 
     if len(gran_fig.marks)>(n_temp+1):
         for i in range(1, n_temp+1):
@@ -176,10 +166,8 @@ def break_sim(b):
     with output:
         display( HTMLMath('$a_{i,j}$'), aij, aij.sum(0), HTML('<br />'),)
 
-        display(HTMLMath(value=ej_eq.value))
-        plt.show(4)
-
         display(HTML(value='<h3> Matrix dos Produtos </h3>'))
         print('\n', ps_mat)
+
         display(HTML(value='<h3> Frequência Acumulada </h3>'))
         print(ps_mat[:, ::-1].cumsum(1))

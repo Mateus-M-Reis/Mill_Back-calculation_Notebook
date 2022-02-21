@@ -7,7 +7,7 @@ n_temp = np.int(df.iloc[0,1])
 n_inter = np.int(df.iloc[0,2])
 
 temp = df.iloc[1,0:int(n_temp)].values
-si_exp = df.iloc[3,0:int(n_inter)].values
+si_exp = df.iloc[3,0:int(n_inter)].values*100
 
 w0_exp = df.iloc[4,0:int(n_inter)].values
 

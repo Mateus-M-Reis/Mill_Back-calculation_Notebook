@@ -10,7 +10,7 @@ from .widgets import *
 
 #### scales
 xs_lin = bq.LinearScale(min=0.03, max=size_mm[0]+1)
-xs = bq.LogScale(min=0.03, max=size_mm[0]+1)
+xs = bq.LogScale(min=0.01, max=size_mm[0]+1)
 
 ys_lin = bq.LinearScale(min=0.0, max=100)
 ys_lin1 = bq.LinearScale(min=0.0, max=1)
@@ -27,7 +27,7 @@ gran_ax_options={
             label='Size (mm)', 
             grid_lines='solid', 
             orientation='horizontal',
-            #tick_format='0.2f',
+            tick_format='0.2f',
             ), 
         'y': dict(
             label='Porcentagem Passante Acumulada', 
