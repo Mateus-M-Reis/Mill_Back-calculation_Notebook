@@ -15,16 +15,17 @@ size = np.arange(n_inter+1)
 for i in range(int(n_inter)):
     size[i] = 1000*(1/np.sqrt(2))**i
 
-pe_exp = df.iloc[5:int(n_temp)+5, 0:int(n_inter)].values
+#pe_exp = df.iloc[5:int(n_temp)+5, 0:int(n_inter)].values
 
 #######################################
-disc = np.zeros((n_temp, n_inter))
-disc = pe_exp.copy()
-for i in range(n_temp):
-    disc[:,8][i] = 100 - disc[i,:8].sum()
+disc = df.iloc[5:int(n_temp)+5, 0:int(n_inter)].values
+#disc = np.zeros((n_temp, n_inter))
+#disc = pe_exp.copy()
+#for i in range(n_temp):
+#    disc[:,8][i] = 100 - disc[i,:8].sum()
 
-freq_a=disc.copy()
-freq_a = freq_a[:,::-1]
+freq_a = disc.copy()
+freq_a = freq_a[:,::-1].cumsum(1)
 #######################################
 
 size_mm = df.iloc[2,0:int(n_inter)].values

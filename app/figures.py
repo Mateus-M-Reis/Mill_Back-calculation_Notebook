@@ -9,7 +9,7 @@ from .widgets import *
 #from .simulation import selecao, calc_Bij
 
 #### scales
-xs_lin = bq.LinearScale(min=0.03, max=size_mm[0]+1)
+#xs_lin = bq.LinearScale(min=0.03, max=size_mm[0]+1)
 xs = bq.LogScale(min=0.01, max=size_mm[0]+1)
 
 ys_lin = bq.LinearScale(min=0.0, max=100)
@@ -51,7 +51,7 @@ gran_fig = plt.figure(
 
 plt.plot(
         x=size_mm, 
-        y=w0_exp[::-1].cumsum()[::-1],
+        y=w0_exp[::-1].cumsum()[::-1]*100,
         axes_options=gran_ax_options,
         scales={'x': xs, 'y': ys_lin},
         colors=['gray'],
@@ -64,7 +64,7 @@ plt.plot(
 for i in range(n_temp):
     plt.scatter(
             x=size_mm, 
-            y=freq_a[i].cumsum()[::-1],
+            y=freq_a[i][::-1],
             scales={ 'x':xs, 'y':ys_lin },
             #stroke_width=2,
             colors=[color_scale.iloc[i]],
@@ -132,18 +132,19 @@ s_line = bq.Lines(
         stroke_width = 2,                 
         interpolation = 'basis'
         )
-si_exp_scatter = bq.Scatter(
-        x=size_mm, 
-        y=si_exp, 
-        scales={'x': xs, 'y': ys}, 
-        colors=['red']
-        )
+#si_exp_scatter = bq.Scatter(
+#        x=size_mm, 
+#        y=si_exp, 
+#        scales={'x': xs, 'y': ys}, 
+#        colors=['red']
+#        )
 s_fig= bq.Figure(
         title='Selection', 
         title_style={'font-size': '20px'}, 
         legend_location='top-left',
         axes=[s_xax, s_yax], 
-        marks=[s_line, si_exp_scatter], 
+        #marks=[s_line, si_exp_scatter], 
+        marks=[s_line], 
         animation_duration=1000,
         axes_options=gran_ax_options,
         fig_margin={'top':0,'bottom':40, 'left':50, 'right':50},

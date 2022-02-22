@@ -30,21 +30,22 @@ def calc_Bij(delta, phi_um, gamma, beta):
                 #        (1-phi_j[j-1])*((size_mm[i-1-1]/size_mm[j-1])**beta)
                 #Bij[i-1,j-1] = phi_j[0]*((size_mm[i-1-1]/size_mm[0])**gamma) + \
                 #        (1-phi_j[0])*((size_mm[i-1-1]/size_mm[0])**beta)
-                #Bij[i-1,j-1] = phi_j[j-1]*R**((i-j-1)*gamma) + \
-                #        (1-phi_j[j-1])*R**((i-j-1)*beta)
-                Bij[i-1,j-1] = phi_j[0]*R**((i-2)*gamma) + \
-                        (1-phi_j[0])*R**((i-2)*beta)
+                Bij[i-1,j-1] = phi_j[j-1]*R**((i-j-1)*gamma) + \
+                        (1-phi_j[j-1])*R**((i-j-1)*beta)
+                #Bij[i-1,j-1] = phi_j[j]*R**((i-2)*gamma) + \
+                #        (1-phi_j[j])*R**((i-2)*beta)
     return Bij
 
 def calc_bij(Bij_mat):
-    for j in range(n_inter):
-        for i in range(n_inter):
+    for j in range(1, n_inter+1):
+        for i in range(1, n_inter):
             if i<j:
-                bij[i,j] = 0.0
-            elif i==n_inter-1:
-                bij[i,j] = Bij_mat[i,j]
+                bij[i-1,j-1] = 0.0
             else:
-                bij[i,j] = Bij_mat[i,j] - Bij_mat[i+1,j]
+                bij[i-1,j-1] = Bij_mat[i-1,j-1] - Bij_mat[i-1+1,j-1]
+    #bij[n_inter-1, 1:] = bij[n_inter-2, :-1]
+    bij[n_inter-1, :n_inter-1] = Bij_mat[n_inter-1, :n_inter-1]
+    #bij[n_inter-1, 0] = 1 - bij[:n_inter-2, 0].sum()
     return bij
 
 def calc_ej(tempo, Ss, flow_wid): 
@@ -112,7 +113,7 @@ def calc_mat_product(
         aij = calc_aij(Si, bij, w0_exp)
 
         ps = calc_pi(aij, ej)
-        ps_mat[i-1] = ps
+        ps_mat[i-1] = ps*100
     return ps_mat
 
 def break_sim(b):
@@ -134,7 +135,7 @@ def break_sim(b):
 
     bij = calc_bij(Bij)
     with output:
-        display( HTMLMath(value='$b_{i,j} = $'), bij, HTML('<br />') )
+        display( HTMLMath(value='$b_{i,j} = $'), bij, HTML('<br />'), bij.sum(0),  HTML('<br />'))
 
     with output:
         display(HTML('<h2>Matrix Calculation</h2>'))
@@ -146,19 +147,19 @@ def break_sim(b):
         aij = calc_aij(Si, bij, w0_exp)
 
         ps = calc_pi(aij, ej)
-        ps_mat[i-1] = ps
+        ps_mat[i-1] = ps*100
 
 
     if len(gran_fig.marks)>(n_temp+1):
         for i in range(1, n_temp+1):
-            gran_fig.marks[i+n_temp].y = ps_mat[:,::-1].cumsum(1)[i-1]*100
+            gran_fig.marks[i+n_temp].y = ps_mat[:,::-1].cumsum(1)[i-1][1:]
 
     else:
         for i in range(1, n_temp+1):
             plt.figure(0)
             plt.plot(
-                    x=size_mm[::-1],
-                    y=ps_mat[:,::-1].cumsum(1)[i-1]*100,
+                    x=size_mm[:-1][::-1],
+                    y=ps_mat[:,::-1].cumsum(1)[i-1][1:],
                     interpolation='basis',
                     stroke_width=2,
                     colors=[color_scale.iloc[i-1]])
@@ -170,4 +171,4 @@ def break_sim(b):
         print('\n', ps_mat)
 
         display(HTML(value='<h3> Frequência Acumulada </h3>'))
-        print(ps_mat[:, ::-1].cumsum(1)*100)
+        print(ps_mat[:, ::-1].cumsum(1))
