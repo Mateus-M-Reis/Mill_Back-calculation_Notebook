@@ -11,7 +11,7 @@ R=1/np.sqrt(2)
 
 def selecao(mu, _lambda, A, alpha):
     S = (A*(size_mm/size_mm[0])**alpha)*(1/(1+(size_mm/mu))**_lambda)
-    #S[n_inter-1] = 0
+    S[n_inter-1] = 0
     return S
 
 def calc_Bij(delta, phi_um, gamma, beta):
@@ -30,10 +30,10 @@ def calc_Bij(delta, phi_um, gamma, beta):
                 #        (1-phi_j[j-1])*((size_mm[i-1-1]/size_mm[j-1])**beta)
                 #Bij[i-1,j-1] = phi_j[0]*((size_mm[i-1-1]/size_mm[0])**gamma) + \
                 #        (1-phi_j[0])*((size_mm[i-1-1]/size_mm[0])**beta)
-                Bij[i-1,j-1] = phi_j[j-1]*R**((i-j-1)*gamma) + \
-                        (1-phi_j[j-1])*R**((i-j-1)*beta)
-                #Bij[i-1,j-1] = phi_j[0]*R**((i-2)*gamma) + \
-                #        (1-phi_j[0])*R**((i-2)*beta)
+                #Bij[i-1,j-1] = phi_j[j-1]*R**((i-j-1)*gamma) + \
+                #        (1-phi_j[j-1])*R**((i-j-1)*beta)
+                Bij[i-1,j-1] = phi_j[0]*R**((i-2)*gamma) + \
+                        (1-phi_j[0])*R**((i-2)*beta)
     return Bij
 
 def calc_bij(Bij_mat):
@@ -151,14 +151,14 @@ def break_sim(b):
 
     if len(gran_fig.marks)>(n_temp+1):
         for i in range(1, n_temp+1):
-            gran_fig.marks[i+n_temp].y = ps_mat[:,::-1].cumsum(1)[i-1]
+            gran_fig.marks[i+n_temp].y = ps_mat[:,::-1].cumsum(1)[i-1]*100
 
     else:
         for i in range(1, n_temp+1):
             plt.figure(0)
             plt.plot(
                     x=size_mm[::-1],
-                    y=ps_mat[:,::-1].cumsum(1)[i-1],
+                    y=ps_mat[:,::-1].cumsum(1)[i-1]*100,
                     interpolation='basis',
                     stroke_width=2,
                     colors=[color_scale.iloc[i-1]])
@@ -170,4 +170,4 @@ def break_sim(b):
         print('\n', ps_mat)
 
         display(HTML(value='<h3> Frequência Acumulada </h3>'))
-        print(ps_mat[:, ::-1].cumsum(1))
+        print(ps_mat[:, ::-1].cumsum(1)*100)

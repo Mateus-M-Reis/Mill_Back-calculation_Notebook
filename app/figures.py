@@ -85,7 +85,7 @@ q_yax = bq.Axis(
         label='Parâmetro de Quebra cumulativo, Bi,j', 
         grid_lines='solid',
         tick_format='0.1f', 
-        tick_values=[0.1, 0.5, 1],
+        tick_values=[0.1, 1],
         )
 q_line = bq.Lines(
         x=size_mm, 
@@ -122,7 +122,7 @@ s_yax = bq.Axis(
         label='Taxa Específica de Quebra, min^-1', 
         grid_lines='solid',
         tick_format='0.1f', 
-        tick_values=[0.1, 0.5, 1],
+        tick_values=[0.1, 1],
         )
 s_line = bq.Lines(
         x=size_mm, 
