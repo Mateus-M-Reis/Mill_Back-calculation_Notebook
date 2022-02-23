@@ -24,8 +24,9 @@ disc = df.iloc[5:int(n_temp)+5, 0:int(n_inter)].values
 #for i in range(n_temp):
 #    disc[:,8][i] = 100 - disc[i,:8].sum()
 
-freq_a = disc.copy()
-freq_a = freq_a[:,::-1].cumsum(1)
+#freq_a = disc.copy()
+#freq_a = freq_a[:,::-1].cumsum(1)
+freq_a = np.ones([n_temp, n_inter])*100 - disc.cumsum(1)[:,::-1]
 #######################################
 
 size_mm = df.iloc[2,0:int(n_inter)].values
