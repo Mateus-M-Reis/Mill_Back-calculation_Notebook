@@ -8,7 +8,7 @@ from .widgets import *
 from .figures import gran_fig, color_scale, gran_ax_options
 from .retrocalc import update_gran_plot
 
-def calc_Bij_cf(gamma, beta, phi_um):
+def calc_Bij_cf_1(gamma, beta, phi_um):
     for j in range(1, n_inter+1):
         for i in range(1, n_inter+1):
             if i < j:
@@ -20,7 +20,7 @@ def calc_Bij_cf(gamma, beta, phi_um):
                         (1-phi_um)*R**((i-j-1)*beta)
     return Bij
 
-def calc_Bij_cf_1(gamma, beta, phi_um):
+def calc_Bij_cf_2(gamma, beta, phi_um):
     for j in range(1, n_inter_cf+1):
         for i in range(1, n_inter_cf+1):
             if i < j:
@@ -72,7 +72,7 @@ def opt_cf_1(vals,
     phi_um = parametros['phi_um']
 
     Si = selecao(mu, _lambda, A, alpha)
-    Bij = calc_Bij_cf(gamma, beta, phi_um)
+    Bij = calc_Bij_cf_1(gamma, beta, phi_um)
     bij = calc_bij(Bij)
     
     ps_mat = np.zeros(n_inter)
@@ -88,6 +88,34 @@ def opt_cf_1(vals,
     with output: display(HTML('<br >'))
         
     return np.subtract(freq_a[n_temp-1], ps_mat.cumsum())**2
+
+def opt_cf_2(vals,
+               w_init, tempo, flow_wid, pe_mat):
+    
+    parametros = vals.valuesdict()
+
+    mu = parametros['mu'] 
+    _lambda = parametros['_lambda']
+    A = parametros['A']
+    alpha = parametros['alpha']
+    delta = parametros['delta']
+    phi_um = parametros['phi_um']
+    gamma = parametros['gamma']
+    beta = parametros['beta']
+
+    Si = selecao(mu, _lambda, A, alpha)
+    Bij = calc_Bij(delta, phi_um, gamma, beta)
+    bij = calc_bij(Bij)
+    
+    ps_mat = np.zeros((n_temp, n_inter))
+    for i in range(1, n_temp+1, 1):
+        ej = calc_ej( temp[i-1], Si, flow_wid)
+        aij = calc_aij(Si, bij, w0_exp)
+        
+        ps = calc_pi(aij, ej)
+        ps_mat[i-1] = ps*100
+        
+    return (np.subtract(freq_a, ps_mat[:,::-1].cumsum(1))**2).sum(1)
 
 def c_fit(b):
 
