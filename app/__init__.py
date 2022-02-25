@@ -18,6 +18,7 @@ from .layout import panel
 
 from .simulation import selecao, calc_Bij, break_sim
 from .retrocalc import retro_calc_Austin
+from .cinetic_fit import c_fit
 
 class App():
     """
@@ -30,6 +31,8 @@ class App():
         Run_sim.on_click(break_sim)
 
         Retro_buttom.on_click(retro_calc_Austin)
+
+        fit_buttom.on_click(c_fit)
 
 # Atualizando Escala gran_plot
 def update_gran_scale(ylog):

@@ -6,6 +6,7 @@ from .input import *
 from .simulation import *
 from .widgets import *
 from .figures import gran_fig, color_scale, gran_ax_options
+from .retrocalc import update_gran_plot
 
 def calc_Bi1(gamma, beta, phi_um):
     for j in range(1, n_inter_cf+1):
@@ -44,7 +45,7 @@ def update_gran_plot_cf():
                         stroke_width=2,
                         colors=[color_scale.iloc[i-1]])
 
-def opt_cf(vals,
+def opt_cf_1(vals,
         w_init, tempo, flow_wid):
     
     parametros = vals.valuesdict()
@@ -59,18 +60,17 @@ def opt_cf(vals,
     beta = parametros['beta']
 
     Si = selecao(mu, _lambda, A, alpha)
-    Bi1 = calc_Bij(delta, phi_um, gamma, beta)
-    bij = calc_bij(Bi1)
+    Bij = calc_Bij(delta, phi_um, gamma, beta)
+    bij = calc_bij(Bij)
     
-    ps_mat = np.zeros((n_temp_cf, n_inter_cf))
-    for i in range(1, n_temp_cf+1, 1):
-        ej = calc_ej( temp[i-1], Si, flow_wid)
-        aij = calc_aij(Si, bij, w0_exp)
+    ps_mat = np.zeros(n_inter)
+    ej = calc_ej( temp[n_temp-1], Si, flow_wid)
+    aij = calc_aij(Si, bij, w0_exp)
+    
+    ps = calc_pi(aij, ej)
+    ps_mat = ps*100
         
-        ps = calc_pi(aij, ej)
-        ps_mat[i-1] = ps*100
-        
-    return (np.subtract(f_acum_cf, ps_mat[:,::-1].cumsum(1))**2).sum(1)
+    return (np.subtract(freq_a[n_temp-1], ps_mat[::-1].cumsum(1))**2)#.sum(1)
 
 def c_fit(b):
 
@@ -100,7 +100,7 @@ def c_fit(b):
                 )
 
     first_result = minimize(
-            opt_cf, 
+            opt_cf_1, 
             params, 
             args=(w0_cf, temp_cf, flow_m), 
             method=opt_m.value,
