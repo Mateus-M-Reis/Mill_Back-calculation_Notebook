@@ -33,8 +33,8 @@ def calc_Bij_cf_2(gamma, beta, phi_um):
             elif i==j:
                 Bi1[i-1,j-1] = 1.0
             else:
-                Bi1[i-1,j-1] = phi_j[j-1]*R**((i-j-1)*gamma) + \
-                        (1-phi_j[j-1])*R**((i-j-1)*beta)
+                Bi1[i-1,j-1] = phi_um*R**((i-j-1)*gamma) + \
+                        (1-phi_um)*R**((i-j-1)*beta)
     return Bi1
 
 def update_gran_plot_cf():
@@ -204,5 +204,4 @@ def c_fit(b):
     alpha_s.value = second_result.params['alpha'].value
     mu_s.value = second_result.params['mu'].value
     lambda_s.value = second_result.params['_lambda'].value
-
     update_gran_plot()
