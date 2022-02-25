@@ -32,22 +32,7 @@ def retro_calc(vals,
         ps = calc_pi(aij, ej)
         ps_mat[i-1] = ps*100
         
-    #wi_mc = np.ones((n_temp, n_inter)) - \
-    #        np.divide(
-    #                (np.subtract(freq_a, ps_mat[:,::-1].cumsum(1))**2), 
-    #                ps_mat[:,::-1].cumsum(1)
-    #                )[::-1]
-    
     return (np.subtract(freq_a, ps_mat[:,::-1].cumsum(1))**2).sum(1)
-
-    #wi_mc = np.ones((n_temp, n_inter)) - \
-    #        np.divide(
-    #                (np.subtract(disc[:,::-1].cumsum(1), ps_mat[:,::-1].cumsum(1))**2), 
-    #                ps_mat[:,::-1].cumsum(1)
-    #                )[::-1]
-    #
-    #return (wi_mc * (np.subtract(disc, ps_mat)**2)).sum(1)
-
 
 def update_gran_plot():
     ps_mat = np.zeros((n_temp, n_inter))
@@ -195,3 +180,59 @@ def retro_calc_Austin(b):
     mu_s.value = third_result.params['mu'].value
     lambda_s.value = third_result.params['_lambda'].value
     update_gran_plot()
+
+    #params['mu'].set(value=third_result.params['A'].value, vary=False)
+    #params['alpha'].set(value=third_result.params['alpha'].value, vary=False)
+    #params['phi_um'].set(vary=True)
+    #params['gamma'].set(vary=True)
+    #params['beta'].set(vary=True)
+    #params['delta'].set(vary=True)
+
+    #fourth_result = minimize(
+    #        retro_calc, 
+    #        params, 
+    #        args=(w0_exp, temp, flow_m, disc),
+    #        method=opt_m.value,
+    #        )
+
+    #with output:
+    #    display(HTML(value='<h4>Quarta Etapa Concluída</h4>'))
+    #    print('###################################################################')
+    #    display(report_fit(fourth_result))
+    #    print('###################################################################')
+
+    #phi_um_s.value = fourth_result.params['phi_um'].value
+    #gamma_s.value = fourth_result.params['gamma'].value
+    #beta_s.value = fourth_result.params['beta'].value
+    #delta_s.value = fourth_result.params['delta'].value
+    #update_gran_plot()
+
+    #params['A'].set(vary=True)
+    #params['alpha'].set(vary=True)
+    #params['mu'].set(vary=True)
+    #params['_lambda'].set(vary=True)
+    #params['phi_um'].set(value=fourth_result.params['phi_um'].value, vary=False)
+    #params['gamma'].set(value=fourth_result.params['gamma'].value, vary=False)
+    #params['beta'].set(value=fourth_result.params['beta'].value, vary=False)
+    #params['delta'].set(value=fourth_result.params['delta'].value, vary=False)
+
+    #fifth_result = minimize(
+    #        retro_calc, 
+    #        params, 
+    #        args=(w0_exp, temp, flow_m, disc),
+    #        method=opt_m.value,
+    #        )
+
+    #with output:
+    #    display(HTML(value='<h4>Quinta Etapa Concluída</h4>'))
+    #    print('###################################################################')
+    #    display(report_fit(fifth_result))
+    #    print('###################################################################')
+
+    #A_s.value = fifth_result.params['A'].value
+    #alpha_s.value = fifth_result.params['alpha'].value
+    #mu_s.value = fifth_result.params['mu'].value
+    #lambda_s.value = fifth_result.params['_lambda'].value
+    #update_gran_plot()
+
+ 

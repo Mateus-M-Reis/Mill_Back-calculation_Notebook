@@ -137,6 +137,13 @@ Retro_buttom = Button(
         style={'width': '25%'},
         )
 
+fit_buttom = Button(
+        description='Cinetic Fit',
+        tooltip='Cinetic Fit Breakage than Selection',
+        button_style = 'primary',
+        style={'width': '25%'},
+        )
+
 ylog_ck = Checkbox(
         value=False, 
         description='Log Y', 

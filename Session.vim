@@ -15,11 +15,12 @@ badd +1 app/simulation.py
 badd +3 app/figures.py
 badd +1 app/input.py
 badd +109 app/layout.py
-badd +186 app/retrocalc.py
+badd +151 app/retrocalc.py
 badd +1 README.md
 badd +2 environment.yml
 badd +2 requirements.txt
 badd +1 .gitignore
+badd +1 app/cinetic_fit.py
 argglobal
 %argdel
 $argadd app.py
@@ -56,7 +57,7 @@ if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 4
-normal! 03|
+normal! 05|
 wincmd w
 argglobal
 if bufexists("index.py") | buffer index.py | else | edit index.py | endif
@@ -68,7 +69,7 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 2 - ((1 * winheight(0) + 26) / 53)
+let s:l = 2 - ((0 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -85,7 +86,7 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 2 - ((1 * winheight(0) + 26) / 53)
+let s:l = 2 - ((0 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -115,7 +116,7 @@ setlocal fdm=indent
 setlocal fde=0
 setlocal fmr={{{,}}}
 setlocal fdi=#
-setlocal fdl=0
+setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
@@ -123,11 +124,7 @@ setlocal fen
 normal! zo
 51
 normal! zo
-51
-normal! zo
 55
-normal! zo
-56
 normal! zo
 56
 normal! zo
@@ -137,12 +134,12 @@ normal! zo
 normal! zo
 61
 normal! zc
-let s:l = 2 - ((1 * winheight(0) + 26) / 53)
+let s:l = 1 - ((0 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-2
-normal! 03|
+1
+normal! 0
 wincmd w
 argglobal
 if bufexists("app/input.py") | buffer app/input.py | else | edit app/input.py | endif
@@ -154,12 +151,12 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 2 - ((1 * winheight(0) + 26) / 53)
+let s:l = 1 - ((0 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-2
-normal! 04|
+1
+normal! 0
 wincmd w
 exe 'vert 1resize ' . ((&columns * 113 + 113) / 227)
 exe 'vert 2resize ' . ((&columns * 113 + 113) / 227)
@@ -191,12 +188,12 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 2 - ((1 * winheight(0) + 26) / 53)
+let s:l = 6 - ((5 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-2
-normal! 0
+6
+normal! 02|
 wincmd w
 argglobal
 if bufexists("app/layout.py") | buffer app/layout.py | else | edit app/layout.py | endif
@@ -243,7 +240,10 @@ tabedit app/simulation.py
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
-1wincmd h
+wincmd _ | wincmd |
+vsplit
+2wincmd h
+wincmd w
 wincmd w
 set nosplitbelow
 set nosplitright
@@ -252,8 +252,9 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe 'vert 1resize ' . ((&columns * 113 + 113) / 227)
-exe 'vert 2resize ' . ((&columns * 113 + 113) / 227)
+exe 'vert 1resize ' . ((&columns * 75 + 113) / 227)
+exe 'vert 2resize ' . ((&columns * 75 + 113) / 227)
+exe 'vert 3resize ' . ((&columns * 75 + 113) / 227)
 argglobal
 setlocal fdm=indent
 setlocal fde=0
@@ -263,29 +264,42 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-18
-normal! zo
-20
-normal! zo
-23
+13
 normal! zo
 18
-normal! zc
-40
+normal! zo
+21
+normal! zo
+24
+normal! zo
+25
+normal! zo
+34
 normal! zo
 41
 normal! zo
-100
-normal! zo
-119
-normal! zo
-167
-normal! zo
-let s:l = 48 - ((47 * winheight(0) + 26) / 53)
+let s:l = 13 - ((11 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-48
+13
+normal! 0
+wincmd w
+argglobal
+if bufexists("app/cinetic_fit.py") | buffer app/cinetic_fit.py | else | edit app/cinetic_fit.py | endif
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 1 - ((0 * winheight(0) + 26) / 53)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+1
 normal! 0
 wincmd w
 argglobal
@@ -302,29 +316,25 @@ setlocal fen
 normal! zo
 29
 normal! zo
-36
+53
 normal! zo
-43
+59
 normal! zo
-43
-normal! zc
-69
+68
 normal! zo
-73
+79
 normal! zo
-73
-normal! zo
-95
-normal! zo
-let s:l = 186 - ((64 * winheight(0) + 26) / 53)
+let s:l = 151 - ((1 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-186
-normal! 06|
+151
+normal! 0
 wincmd w
-exe 'vert 1resize ' . ((&columns * 113 + 113) / 227)
-exe 'vert 2resize ' . ((&columns * 113 + 113) / 227)
+2wincmd w
+exe 'vert 1resize ' . ((&columns * 75 + 113) / 227)
+exe 'vert 2resize ' . ((&columns * 75 + 113) / 227)
+exe 'vert 3resize ' . ((&columns * 75 + 113) / 227)
 tabnext 4
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

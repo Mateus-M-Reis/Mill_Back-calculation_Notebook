@@ -10,12 +10,13 @@ from .layout import panel
 R=1/np.sqrt(2)
 
 def selecao(mu, _lambda, A, alpha):
-    S = (A*(size_mm/size_mm[0])**alpha)*(1/(1+(size_mm/mu))**_lambda)
+    S = (A*(size_mm/1.0)**alpha)*(1/(1+(size_mm/mu))**_lambda)
     S[n_inter-1] = 0
     return S
 
 def calc_Bij(delta, phi_um, gamma, beta):
-    phi_j = (phi_um*(size_mm/size_mm[0])**(-delta))#[::-1]
+    phi_j = (phi_um*(size_mm/1.0)**(-delta))#[::-1]
+    #phi_j = phi_um*np.ones([n_inter])
     for l in range(n_inter):
         if phi_j[l]>1.0:
             phi_j[l] = 1.0
