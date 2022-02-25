@@ -95,15 +95,15 @@ def opt_cf_1(vals,
     return np.subtract(freq_a[n_temp-1], ps_mat.cumsum())**2
 
 def opt_cf_2(vals,
-               w_init, tempo, flow_wid, pe_mat):
+               w_init, tempo, flow_wid):
     
     parametros = vals.valuesdict()
 
-    mu = parametros['mu'] 
-    _lambda = parametros['_lambda']
     A = parametros['A']
     alpha = parametros['alpha']
-    delta = parametros['delta']
+    mu = parametros['mu'] 
+    _lambda = parametros['_lambda']
+
     phi_um = parametros['phi_um']
     gamma = parametros['gamma']
     beta = parametros['beta']
@@ -113,14 +113,14 @@ def opt_cf_2(vals,
     bij = calc_bij(Bi1)
     
     ps_mat = np.zeros((n_temp_cf, n_inter_cf))
-    for i in range(1, n_temp+1, 1):
-        ej = calc_ej( temp[i-1], Si, flow_wid)
-        aij = calc_aij(Si, bij, w0_exp)
+    for i in range(1, n_temp_cf+1, 1):
+        ej = calc_ej( tempo[i-1], Si, flow_wid)
+        aij = calc_aij(Si, bij, w_init)
         
         ps = calc_pi(aij, ej)
         ps_mat[i-1] = ps*100
         
-    return (np.subtract(freq_a, ps_mat[:,::-1].cumsum(1))**2).sum(1)
+    return (np.subtract(f_acum_cf, ps_mat[:,::-1].cumsum(1))**2).sum(1)
 
 def c_fit(b):
 
@@ -188,9 +188,9 @@ def c_fit(b):
                 )
 
     second_result = minimize(
-            opt_cf,
+            opt_cf_2,
             params, 
-            args=(w0_exp, temp, flow_m),
+            args=(w0_cf, temp_cf, flow_m),
             method=opt_m.value,
             )
 
