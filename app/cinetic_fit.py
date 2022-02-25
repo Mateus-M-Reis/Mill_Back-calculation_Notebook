@@ -103,11 +103,11 @@ def opt_cf_2(vals,
     gamma = parametros['gamma']
     beta = parametros['beta']
 
-    Si = selecao(mu, _lambda, A, alpha)
-    Bij = calc_Bij(delta, phi_um, gamma, beta)
-    bij = calc_bij(Bij)
+    Si = selecao_cf(mu, _lambda, A, alpha)
+    Bi1 = calc_Bij_cf_2(delta, phi_um, gamma, beta)
+    bij = calc_bij(Bi1)
     
-    ps_mat = np.zeros((n_temp, n_inter))
+    ps_mat = np.zeros((n_temp_cf, n_inter_cf))
     for i in range(1, n_temp+1, 1):
         ej = calc_ej( temp[i-1], Si, flow_wid)
         aij = calc_aij(Si, bij, w0_exp)
