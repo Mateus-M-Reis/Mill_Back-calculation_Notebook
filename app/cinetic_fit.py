@@ -50,27 +50,33 @@ def opt_cf_1(vals,
     
     parametros = vals.valuesdict()
 
-    mu = parametros['mu'] 
-    _lambda = parametros['_lambda']
     A = parametros['A']
     alpha = parametros['alpha']
-    delta = parametros['delta']
-    phi_um = parametros['phi_um']
+    mu = parametros['mu'] 
+    _lambda = parametros['_lambda']
+
     gamma = parametros['gamma']
     beta = parametros['beta']
+    phi_um = parametros['phi_um']
 
     Si = selecao(mu, _lambda, A, alpha)
+    with output: display(Si)
     Bij = calc_Bij(delta, phi_um, gamma, beta)
+    with output: display(Bij)
     bij = calc_bij(Bij)
+    with output: display(bij)
     
     ps_mat = np.zeros(n_inter)
-    ej = calc_ej( temp[n_temp-1], Si, flow_wid)
-    aij = calc_aij(Si, bij, w0_exp)
+    ej = calc_ej( tempo[n_temp-1], Si, flow_wid)
+    aij = calc_aij(Si, bij, w_init)
     
     ps = calc_pi(aij, ej)
     ps_mat = ps*100
+
+    with output: display(freq_a[n_temp-1])
+    with output: display(ps_mat[::-1].cumsum())
         
-    return (np.subtract(freq_a[n_temp-1], ps_mat[::-1].cumsum(1))**2)#.sum(1)
+    return (np.subtract(freq_a[n_temp-1], ps_mat[::-1].cumsum())**2)
 
 def c_fit(b):
 
@@ -102,7 +108,7 @@ def c_fit(b):
     first_result = minimize(
             opt_cf_1, 
             params, 
-            args=(w0_cf, temp_cf, flow_m), 
+            args=(w0_exp, temp, flow_m), 
             method=opt_m.value,
             )
 
