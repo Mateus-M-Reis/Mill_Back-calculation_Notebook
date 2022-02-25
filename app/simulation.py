@@ -38,8 +38,8 @@ def calc_Bij(delta, phi_um, gamma, beta):
     return Bij
 
 def calc_bij(Bij_mat):
-    for j in range(1, n_inter+1):
-        for i in range(1, n_inter):
+    for j in range(1, Bij_mat.shape[0]+1):
+        for i in range(1, Bij_mat.shape[0]):
             if i<j:
                 bij[i-1,j-1] = 0.0
             else:
@@ -88,6 +88,7 @@ def calc_aij(Ss, bs, fi):
 
 def calc_pi(a_s, es):
 
+    n_inter = es.shape[0]
     ps = np.zeros(n_inter)
 
     for i in range(1, n_inter+1):
