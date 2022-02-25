@@ -72,11 +72,8 @@ def opt_cf_1(vals,
     phi_um = parametros['phi_um']
 
     Si = selecao(mu, _lambda, A, alpha)
-    with output: display(Si)
     Bij = calc_Bij_cf(gamma, beta, phi_um)
-    with output: display(Bij)
     bij = calc_bij(Bij)
-    with output: display(bij)
     
     ps_mat = np.zeros(n_inter)
     ej = calc_ej( tempo[n_temp-1], Si, flow_wid)
@@ -85,9 +82,6 @@ def opt_cf_1(vals,
     ps = calc_pi(aij, ej)
     ps_mat = ps*100
 
-    with output: display(freq_a[n_temp-1])
-    with output: display(ps_mat[::-1].cumsum())
-        
     return (np.subtract(freq_a[n_temp-1], ps_mat[::-1].cumsum())**2)
 
 def c_fit(b):
