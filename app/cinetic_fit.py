@@ -8,6 +8,11 @@ from .widgets import *
 from .figures import gran_fig, color_scale, gran_ax_options
 from .retrocalc import update_gran_plot
 
+def selecao_cf(mu, _lambda, A, alpha):
+    S = (A*(size_mm_cf/1.0)**alpha)*(1/(1+(size_mm_cf/mu))**_lambda)
+    S[n_inter-1] = 0
+    return S
+
 def calc_Bij_cf_1(gamma, beta, phi_um):
     for j in range(1, n_inter+1):
         for i in range(1, n_inter+1):
@@ -104,7 +109,7 @@ def opt_cf_2(vals,
     beta = parametros['beta']
 
     Si = selecao_cf(mu, _lambda, A, alpha)
-    Bi1 = calc_Bij_cf_2(delta, phi_um, gamma, beta)
+    Bi1 = calc_Bij_cf_2(gamma, beta, phi_um)
     bij = calc_bij(Bi1)
     
     ps_mat = np.zeros((n_temp_cf, n_inter_cf))
