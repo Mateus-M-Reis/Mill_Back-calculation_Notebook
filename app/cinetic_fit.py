@@ -87,10 +87,10 @@ def opt_cf_1(vals,
     ps = calc_pi(aij, ej)
     ps_mat = ps*100
 
-    with output: display(freq_a[n_temp-1])
-    with output: display(ps_mat[::-1].cumsum())
-    with output: display(np.subtract(freq_a[n_temp-1], ps_mat[::-1].cumsum())**2)
-    with output: display(HTML('<br >'))
+    #with output: display(freq_a[n_temp-1])
+    #with output: display(ps_mat[::-1].cumsum())
+    #with output: display(np.subtract(freq_a[n_temp-1], ps_mat[::-1].cumsum())**2)
+    #with output: display(HTML('<br >'))
         
     return np.subtract(freq_a[n_temp-1], ps_mat.cumsum())**2
 
@@ -169,8 +169,8 @@ def c_fit(b):
 
     ##############################################################################
 
-    params['A'].set(vary=False)
-    params['alpha'].set(vary=False)
+    params['A'].set(vary=True)
+    params['alpha'].set(vary=True)
     params['mu'].set(vary=True)
     params['_lambda'].set(vary=True)
 
