@@ -8,7 +8,19 @@ from .widgets import *
 from .figures import gran_fig, color_scale, gran_ax_options
 from .retrocalc import update_gran_plot
 
-def calc_Bi1(gamma, beta, phi_um):
+def calc_Bij_cf(gamma, beta, phi_um):
+    for j in range(1, n_inter+1):
+        for i in range(1, n_inter+1):
+            if i < j:
+                Bij[i-1,j-1] = 0.0
+            elif i==j:
+                Bij[i-1,j-1] = 1.0
+            else:
+                Bij[i-1,j-1] = phi_um*R**((i-j-1)*gamma) + \
+                        (1-phi_um)*R**((i-j-1)*beta)
+    return Bij
+
+def calc_Bij_cf_1(gamma, beta, phi_um):
     for j in range(1, n_inter_cf+1):
         for i in range(1, n_inter_cf+1):
             if i < j:
@@ -16,8 +28,8 @@ def calc_Bi1(gamma, beta, phi_um):
             elif i==j:
                 Bi1[i-1,j-1] = 1.0
             else:
-                Bi1[i-1,j-1] = phi_um[j-1]*R**((i-2)*gamma) + \
-                        (1-phi_um[j-1])*R**((i-2)*beta)
+                Bi1[i-1,j-1] = phi_j[j-1]*R**((i-j-1)*gamma) + \
+                        (1-phi_j[j-1])*R**((i-j-1)*beta)
     return Bi1
 
 def update_gran_plot_cf():
@@ -61,7 +73,7 @@ def opt_cf_1(vals,
 
     Si = selecao(mu, _lambda, A, alpha)
     with output: display(Si)
-    Bij = calc_Bij(delta, phi_um, gamma, beta)
+    Bij = calc_Bij_cf(gamma, beta, phi_um)
     with output: display(Bij)
     bij = calc_bij(Bij)
     with output: display(bij)
