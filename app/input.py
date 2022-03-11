@@ -24,7 +24,7 @@ Si= np.zeros(n_inter)
 Bij = np.zeros((n_inter, n_inter))
 bij = np.zeros((n_inter,n_inter))
 
-##############################################################################
+#########################################
 
 n_temp_cf = np.int(df.iloc[12, 1])
 n_inter_cf = np.int(df.iloc[12, 2])

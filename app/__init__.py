@@ -51,13 +51,11 @@ interactive_gran_plot = interactive_output(
 
 def update_sel_plot(mu, _lambda, A, alpha):
     s_line.y = selecao(
-            mu, _lambda, A, alpha
-            )
+            mu, _lambda, A, alpha)
 
 def update_q_plot(delta, phi_um, gamma, beta):
     q_line.y = np.array(
-            calc_Bij(delta, phi_um, gamma, beta)[:,0]
-            )
+            calc_Bij(delta, phi_um, gamma, beta)[:,0])
 
 # Atualizando Figura Função Seleção
 interactive_sel_plot = interactive_output(

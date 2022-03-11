@@ -13,7 +13,7 @@ def selecao_cf(mu, _lambda, A, alpha):
     S[n_inter-1] = 0
     return S
 
-def calc_Bij_cf_1(gamma, beta, phi_um):
+def calc_Bi1(n_inter, gamma, beta, phi_um):
     for j in range(1, n_inter+1):
         for i in range(1, n_inter+1):
             if i < j:
@@ -25,22 +25,10 @@ def calc_Bij_cf_1(gamma, beta, phi_um):
                         (1-phi_um)*R**((i-j-1)*beta)
     return Bij
 
-def calc_Bij_cf_2(gamma, beta, phi_um):
-    for j in range(1, n_inter_cf+1):
-        for i in range(1, n_inter_cf+1):
-            if i < j:
-                Bi1[i-1,j-1] = 0.0
-            elif i==j:
-                Bi1[i-1,j-1] = 1.0
-            else:
-                Bi1[i-1,j-1] = phi_um*R**((i-j-1)*gamma) + \
-                        (1-phi_um)*R**((i-j-1)*beta)
-    return Bi1
-
 def update_gran_plot_cf():
     ps_mat = np.zeros((n_temp, n_inter))
     Si = selecao(mu_s.value, lambda_s.value, A_s.value, alpha_s.value)
-    Bij = calc_Bij(delta_s.value, phi_um_s.value, gamma_s.value, beta_s.value)
+    Bij = calc_Bij(n_inter, gamma_s.value, beta_s.value, phi_um_s.value)
     bij = calc_bij(Bij)
 
     for i in range(1, n_temp+1):
@@ -77,7 +65,7 @@ def opt_cf_1(vals,
     phi_um = parametros['phi_um']
 
     Si = selecao(mu, _lambda, A, alpha)
-    Bij = calc_Bij_cf_1(gamma, beta, phi_um)
+    Bij = calc_Bi1(n_inter, gamma, beta, phi_um)
     bij = calc_bij(Bij)
     
     ps_mat = np.zeros(n_inter)
@@ -95,7 +83,7 @@ def opt_cf_1(vals,
     return np.subtract(freq_a[n_temp-1], ps_mat.cumsum())**2
 
 def opt_cf_2(vals,
-               w_init, tempo, flow_wid):
+        w_init, tempo, flow_wid):
     
     parametros = vals.valuesdict()
 
@@ -109,7 +97,7 @@ def opt_cf_2(vals,
     beta = parametros['beta']
 
     Si = selecao_cf(mu, _lambda, A, alpha)
-    Bi1 = calc_Bij_cf_2(gamma, beta, phi_um)
+    Bi1 = calc_Bi1(n_inter_cf, gamma, beta, phi_um)
     bij = calc_bij(Bi1)
     
     ps_mat = np.zeros((n_temp_cf, n_inter_cf))
@@ -135,32 +123,28 @@ def c_fit(b):
 
             ('gamma', gamma_s.value, True, gamma_s.min, gamma_s.max, None, 0.01), 
             ('beta', beta_s.value, True, beta_s.min, beta_s.max, None, 0.01),
-            ('phi_um', phi_um_s.value, True, phi_um_s.min, phi_um_s.max, None, 0.01), 
-            )
+            ('phi_um', phi_um_s.value, True, phi_um_s.min, phi_um_s.max, None, 0.01))
 
     output.clear_output()
     with output:
         display(
                 HTML(value='<h1>Cinetic Fit</h1>'),
                 HTML(value='<h3>Iniciando Primeira Etapa</h3>'),
-                Label(
-                    value='Varing the foloowing variables:\n \
-                            $\gamma$, $\\beta$, $\Phi_1$'),
-                params
-                )
+                Label(value='Varing the foloowing variables:\
+                        $\gamma$, $\\beta$, $\Phi_1$'),
+                params)
 
     first_result = minimize(
             opt_cf_1, 
             params, 
             args=(w0_exp, temp, flow_m), 
-            method=opt_m.value,
-            )
+            method=opt_m.value)
 
     with output:
         display(HTML(value='<h4>Primeira Etapa Concluída</h4>'))
-        print('###################################################################')
-        display( report_fit(first_result) )
-        print('###################################################################')
+        print('##################################################################')
+        display(report_fit(first_result))
+        print('##################################################################')
 
     phi_um_s.value = first_result.params['phi_um'].value
     gamma_s.value = first_result.params['gamma'].value
@@ -181,24 +165,21 @@ def c_fit(b):
     with output:
         display(
                 HTML(value='<h3>Iniciando Segunda Etapa</h3>'),
-                Label(
-                    value='Varing the foloowing variables:\n \
-                            $A$, $\\alpha$, $\mu$, $\Lambda$'),
-                params
-                )
+                Label(value='Varing the foloowing variables:\
+                        $A$, $\\alpha$, $\mu$, $\Lambda$'),
+                params)
 
     second_result = minimize(
             opt_cf_2,
             params, 
             args=(w0_cf, temp_cf, flow_m),
-            method=opt_m.value,
-            )
+            method=opt_m.value)
 
     with output:
         display(HTML(value='<h4>Segunda Etapa Concluída</h4>'))
-        print('###################################################################')
+        print('##################################################################')
         display( report_fit(second_result) )
-        print('###################################################################')
+        print('##################################################################')
 
     A_s.value = second_result.params['A'].value
     alpha_s.value = second_result.params['alpha'].value

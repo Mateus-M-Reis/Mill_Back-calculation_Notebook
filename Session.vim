@@ -2,7 +2,7 @@ let SessionLoad = 1
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/Códigos/retrocalc
+cd ~/Códigos/Mill_Back-calculation_Notebook
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
@@ -40,8 +40,11 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
+exe '1resize ' . ((&lines * 53 + 29) / 58)
 exe 'vert 1resize ' . ((&columns * 75 + 113) / 227)
+exe '2resize ' . ((&lines * 53 + 29) / 58)
 exe 'vert 2resize ' . ((&columns * 75 + 113) / 227)
+exe '3resize ' . ((&lines * 53 + 29) / 58)
 exe 'vert 3resize ' . ((&columns * 75 + 113) / 227)
 argglobal
 setlocal fdm=indent
@@ -93,8 +96,11 @@ normal! zt
 2
 normal! 023|
 wincmd w
+exe '1resize ' . ((&lines * 53 + 29) / 58)
 exe 'vert 1resize ' . ((&columns * 75 + 113) / 227)
+exe '2resize ' . ((&lines * 53 + 29) / 58)
 exe 'vert 2resize ' . ((&columns * 75 + 113) / 227)
+exe '3resize ' . ((&lines * 53 + 29) / 58)
 exe 'vert 3resize ' . ((&columns * 75 + 113) / 227)
 tabedit app/__init__.py
 set splitbelow splitright
@@ -109,7 +115,9 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
+exe '1resize ' . ((&lines * 53 + 29) / 58)
 exe 'vert 1resize ' . ((&columns * 113 + 113) / 227)
+exe '2resize ' . ((&lines * 53 + 29) / 58)
 exe 'vert 2resize ' . ((&columns * 113 + 113) / 227)
 argglobal
 setlocal fdm=indent
@@ -120,26 +128,18 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-50
+49
 normal! zo
-51
+53
 normal! zo
-55
+54
 normal! zo
-56
-normal! zo
-61
-normal! zo
-61
-normal! zo
-61
-normal! zc
 let s:l = 1 - ((0 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 1
-normal! 0
+normal! 02|
 wincmd w
 argglobal
 if bufexists("app/input.py") | buffer app/input.py | else | edit app/input.py | endif
@@ -158,7 +158,9 @@ normal! zt
 1
 normal! 0
 wincmd w
+exe '1resize ' . ((&lines * 53 + 29) / 58)
 exe 'vert 1resize ' . ((&columns * 113 + 113) / 227)
+exe '2resize ' . ((&lines * 53 + 29) / 58)
 exe 'vert 2resize ' . ((&columns * 113 + 113) / 227)
 tabedit app/widgets.py
 set splitbelow splitright
@@ -176,8 +178,11 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
+exe '1resize ' . ((&lines * 53 + 29) / 58)
 exe 'vert 1resize ' . ((&columns * 75 + 113) / 227)
+exe '2resize ' . ((&lines * 53 + 29) / 58)
 exe 'vert 2resize ' . ((&columns * 75 + 113) / 227)
+exe '3resize ' . ((&lines * 53 + 29) / 58)
 exe 'vert 3resize ' . ((&columns * 75 + 113) / 227)
 argglobal
 setlocal fdm=indent
@@ -193,7 +198,7 @@ if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 6
-normal! 02|
+normal! 03|
 wincmd w
 argglobal
 if bufexists("app/layout.py") | buffer app/layout.py | else | edit app/layout.py | endif
@@ -233,8 +238,11 @@ normal! zt
 1
 normal! 0
 wincmd w
+exe '1resize ' . ((&lines * 53 + 29) / 58)
 exe 'vert 1resize ' . ((&columns * 75 + 113) / 227)
+exe '2resize ' . ((&lines * 53 + 29) / 58)
 exe 'vert 2resize ' . ((&columns * 75 + 113) / 227)
+exe '3resize ' . ((&lines * 53 + 29) / 58)
 exe 'vert 3resize ' . ((&columns * 75 + 113) / 227)
 tabedit app/simulation.py
 set splitbelow splitright
@@ -278,7 +286,7 @@ normal! zo
 normal! zo
 41
 normal! zo
-let s:l = 13 - ((11 * winheight(0) + 26) / 53)
+let s:l = 13 - ((0 * winheight(0) + 27) / 55)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -295,12 +303,12 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 1 - ((0 * winheight(0) + 26) / 53)
+let s:l = 1 - ((0 * winheight(0) + 27) / 55)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 1
-normal! 0
+normal! 02|
 wincmd w
 argglobal
 if bufexists("app/retrocalc.py") | buffer app/retrocalc.py | else | edit app/retrocalc.py | endif
@@ -316,15 +324,13 @@ setlocal fen
 normal! zo
 29
 normal! zo
-53
+38
 normal! zo
-59
+44
 normal! zo
-68
+64
 normal! zo
-79
-normal! zo
-let s:l = 151 - ((1 * winheight(0) + 26) / 53)
+let s:l = 151 - ((0 * winheight(0) + 27) / 55)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
