@@ -69,7 +69,7 @@ def opt_cf_1(vals,
     bij = calc_bij(Bij)
     
     ps_mat = np.zeros(n_inter)
-    ej = calc_ej( tempo[n_temp-1], Si, flow_wid)
+    ej = calc_ej(tempo[n_temp-1], Si, flow_wid)
     aij = calc_aij(Si, bij, w_init)
     
     ps = calc_pi(aij, ej)
@@ -102,7 +102,7 @@ def opt_cf_2(vals,
     
     ps_mat = np.zeros((n_temp_cf, n_inter_cf))
     for i in range(1, n_temp_cf+1, 1):
-        ej = calc_ej( tempo[i-1], Si, flow_wid)
+        ej = calc_ej(tempo[i-1], Si, flow_wid)
         aij = calc_aij(Si, bij, w_init)
         
         ps = calc_pi(aij, ej)
